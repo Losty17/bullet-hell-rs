@@ -1,7 +1,7 @@
 use raylib::{
     color::Color,
     drawing::{RaylibDraw, RaylibDrawHandle},
-    ffi::KeyboardKey,
+    ffi::{KeyboardKey, Rectangle, Vector2},
     RaylibHandle,
 };
 
@@ -10,14 +10,16 @@ use crate::consts::Consts;
 pub struct Player {
     pub x: i32,
     pub y: i32,
+    rotation: f32,
 }
 
 impl Player {
     pub const SPEED: i32 = 3;
-    pub const SIZE: i32 = 20;
+    pub const SIZE: i32 = 30;
 
     pub fn new() -> Self {
         Player {
+            rotation: 0.0,
             x: Consts::SCREEN_WIDTH / 2,
             y: Consts::SCREEN_HEIGHT / 2,
         }
@@ -37,20 +39,35 @@ impl Player {
             self.y += Player::SPEED;
         }
 
-        if self.x + Player::SIZE > Consts::SCREEN_WIDTH {
-            self.x = Consts::SCREEN_WIDTH - 20;
-        } else if self.x < 0 {
-            self.x = 0;
+        if self.x + (Player::SIZE / 2) > Consts::SCREEN_WIDTH {
+            self.x = Consts::SCREEN_WIDTH - (Player::SIZE / 2);
+        } else if self.x < (Player::SIZE / 2) {
+            self.x = Player::SIZE / 2;
         }
 
-        if self.y + Player::SIZE > Consts::SCREEN_HEIGHT {
-            self.y = Consts::SCREEN_HEIGHT - 20;
-        } else if self.y < 0 {
-            self.y = 0;
+        if self.y + (Player::SIZE / 2) > Consts::SCREEN_HEIGHT {
+            self.y = Consts::SCREEN_HEIGHT - (Player::SIZE / 2);
+        } else if self.y < (Player::SIZE / 2) {
+            self.y = Player::SIZE / 2;
         }
     }
 
-    pub fn draw(&self, d: &mut RaylibDrawHandle) {
-        d.draw_rectangle(self.x, self.y, 20, 20, Color::RED);
+    pub fn draw(&mut self, d: &mut RaylibDrawHandle) {
+        d.draw_rectangle_pro(
+            Rectangle {
+                x: self.x as f32,
+                y: self.y as f32,
+                width: Player::SIZE as f32,
+                height: Player::SIZE as f32,
+            },
+            Vector2 {
+                x: (Player::SIZE / 2) as f32,
+                y: (Player::SIZE / 2) as f32,
+            },
+            self.rotation,
+            Color::ORANGE,
+        );
+
+        self.rotation += 5.0;
     }
 }

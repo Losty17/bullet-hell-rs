@@ -2,14 +2,19 @@ mod consts;
 mod game_object;
 mod player;
 
-use crate::player::Player;
+use player::Player;
+use consts::Consts;
 use raylib::{
     color::Color,
     drawing::{RaylibDraw, RaylibDrawHandle},
 };
 
 fn main() {
-    let (mut rl, thread) = raylib::init().size(600, 800).title("bullet hell").build();
+    let (mut rl, thread) = raylib::init()
+        .size(Consts::SCREEN_WIDTH, Consts::SCREEN_HEIGHT)
+        .title("bullet hell")
+        .build();
+
     rl.set_target_fps(60);
 
     let mut player = Player::new();
