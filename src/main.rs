@@ -1,9 +1,8 @@
 mod consts;
-mod game_object;
-mod player;
+mod objects;
 
-use player::Player;
 use consts::Consts;
+use objects::Player;
 use raylib::{
     color::Color,
     drawing::{RaylibDraw, RaylibDrawHandle},
