@@ -5,7 +5,7 @@ use raylib::{
     texture::Texture2D,
 };
 
-pub(super) struct GameObject {
+pub struct GameObject {
     pub x: i32,
     pub y: i32,
     pub width: i32,
@@ -13,6 +13,8 @@ pub(super) struct GameObject {
     pub rotation: f32,
     pub texture: Option<Texture2D>,
     pub color: Color,
+    pub scale: f32,
+    pub alpha: f32,
 }
 
 impl GameObject {
@@ -39,6 +41,8 @@ impl GameObject {
             texture,
             rotation,
             color,
+            scale: 1.0,
+            alpha: 1.0,
         }
     }
 

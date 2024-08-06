@@ -4,7 +4,7 @@ use super::game_object::GameObject;
 use crate::consts::Consts;
 
 pub struct Player {
-    game_object: GameObject,
+    pub game_object: GameObject,
 }
 
 impl Player {
